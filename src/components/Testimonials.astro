@@ -14,9 +14,9 @@ import { reviewsSection, latestReviews } from '../data/homepage';
             <img src={review.image} alt={review.alt} width="374" height="201" loading="lazy" />
           </a>
           <div class="review-card__body">
-            <h4>
+            <h3>
               <a href={review.href}>{review.title}</a>
-            </h4>
+            </h3>
           </div>
         </article>
       ))}
@@ -58,17 +58,17 @@ import { reviewsSection, latestReviews } from '../data/homepage';
     padding: 1rem 1.25rem 1.25rem;
   }
 
-  .review-card h4 {
+  .review-card h3 {
     font-size: 1.0625rem;
     margin: 0;
   }
 
-  .review-card h4 a {
+  .review-card h3 a {
     color: var(--color-heading);
     transition: color var(--transition);
   }
 
-  .review-card h4 a:hover {
+  .review-card h3 a:hover {
     color: var(--color-accent);
   }
 </style>

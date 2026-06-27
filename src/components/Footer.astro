@@ -2,7 +2,6 @@
 import {
   footerInfoLinks,
   footerCategoryLinks,
-  footerColumnHeadings,
   footerTagline,
   footerLatestPostSlugs,
 } from '../data/footer';
@@ -15,8 +14,7 @@ const blogPosts = footerLatestPostSlugs
   .filter((post): post is NonNullable<typeof post> => post !== undefined);
 
 const year = new Date().getFullYear();
-const footerLogo = '/images/2023/01/InteriorChick.nl2_.svg';
-const footerCtaBackground = '/images/2023/01/Group-8131.jpg';
+const footerLogo = '/images/2023/01/InteriorChick.nl1_.svg';
 
 const socialIcons = [
   { label: 'Facebook', icon: 'facebook' },
@@ -26,23 +24,6 @@ const socialIcons = [
 ] as const;
 ---
 <footer class="site-footer">
-  <section
-    class="site-footer__cta"
-    style={`background-image: url('${footerCtaBackground}')`}
-  >
-    <div class="site-footer__cta-overlay" aria-hidden="true"></div>
-    <div class="container site-footer__cta-container">
-      <div class="site-footer__cta-spacer" aria-hidden="true"></div>
-      <div class="site-footer__cta-content reveal">
-        <p>
-          Op InteriorChick.nl vind je inspiratie, blogs en top 10 lijstjes voor stijlvol interieur.
-          Neem contact op als je vragen hebt over onze tips en productvergelijkingen.
-        </p>
-        <a href="/contact/" class="btn btn--accent">Contact opnemen</a>
-      </div>
-    </div>
-  </section>
-
   <div class="container site-footer__main">
     <div class="site-footer__sidebar reveal">
       <a href="/" class="site-footer__logo" aria-label="InteriorChick.nl Home">
@@ -53,12 +34,12 @@ const socialIcons = [
         <a href="/sitemap/"><strong>Sitemap</strong></a>
       </p>
       <p class="site-footer__quick-link">
-        <a href="/laatste-blogs/"><strong>Laatste blogs</strong></a>
+        <a href="/laatste-blogs/"><strong>Laatste blog</strong></a>
       </p>
       <div class="site-footer__social" aria-label="Social media">
         {socialIcons.map(({ label, icon }) => (
           <span class="site-footer__social-item" role="listitem">
-            <a class="site-footer__social-link" target="_blank" aria-label={label}>
+            <span class="site-footer__social-link" aria-label={label}>
               {icon === 'facebook' && (
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
               )}
@@ -71,11 +52,11 @@ const socialIcons = [
               {icon === 'youtube' && (
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
               )}
-            </a>
+            </span>
           </span>
         ))}
       </div>
-      <p class="site-footer__copyright">&copy; {year} Alle rechten voorbehouden</p>
+      <p class="site-footer__copyright">&copy; {year} All rights reserved</p>
     </div>
 
     <div class="site-footer__grid">
@@ -89,18 +70,7 @@ const socialIcons = [
       </div>
 
       <div class="site-footer__column reveal">
-        <p class="site-footer__heading">Laatste artikelen</p>
-        <div class="site-footer__links">
-          {blogPosts.map((post) => (
-            <p><a href={`/${post.id}/`}>{post.data.title}</a></p>
-          ))}
-        </div>
-      </div>
-
-      <div class="site-footer__column reveal">
-        <p class="site-footer__heading">
-          <a href={footerColumnHeadings.melders.href}>{footerColumnHeadings.melders.label}</a>
-        </p>
+        <p class="site-footer__heading">Melders</p>
         <div class="site-footer__links">
           {footerCategoryLinks.melders.map((link) => (
             <p><a href={link.href}>{link.label}</a></p>
@@ -109,9 +79,7 @@ const socialIcons = [
       </div>
 
       <div class="site-footer__column reveal">
-        <p class="site-footer__heading">
-          <a href={footerColumnHeadings.slaapkamer.href}>{footerColumnHeadings.slaapkamer.label}</a>
-        </p>
+        <p class="site-footer__heading">Slaapkamer</p>
         <div class="site-footer__links">
           {footerCategoryLinks.slaapkamer.map((link) => (
             <p><a href={link.href}>{link.label}</a></p>
@@ -120,9 +88,16 @@ const socialIcons = [
       </div>
 
       <div class="site-footer__column reveal">
-        <p class="site-footer__heading">
-          <a href={footerColumnHeadings.keuken.href}>{footerColumnHeadings.keuken.label}</a>
-        </p>
+        <p class="site-footer__heading">Laatste blogs</p>
+        <div class="site-footer__links">
+          {blogPosts.map((post) => (
+            <p><a href={`/${post.id}/`}>{post.data.title}</a></p>
+          ))}
+        </div>
+      </div>
+
+      <div class="site-footer__column reveal">
+        <p class="site-footer__heading">Keuken</p>
         <div class="site-footer__links">
           {footerCategoryLinks.keuken.map((link) => (
             <p><a href={link.href}>{link.label}</a></p>
@@ -131,9 +106,7 @@ const socialIcons = [
       </div>
 
       <div class="site-footer__column reveal">
-        <p class="site-footer__heading">
-          <a href={footerColumnHeadings.terras.href}>{footerColumnHeadings.terras.label}</a>
-        </p>
+        <p class="site-footer__heading">Terras</p>
         <div class="site-footer__links">
           {footerCategoryLinks.terras.map((link) => (
             <p><a href={link.href}>{link.label}</a></p>
@@ -142,9 +115,7 @@ const socialIcons = [
       </div>
 
       <div class="site-footer__column reveal">
-        <p class="site-footer__heading">
-          <a href={footerColumnHeadings.veiligheid.href}>{footerColumnHeadings.veiligheid.label}</a>
-        </p>
+        <p class="site-footer__heading">Veiligheid</p>
         <div class="site-footer__links">
           {footerCategoryLinks.veiligheid.map((link) => (
             <p><a href={link.href}>{link.label}</a></p>

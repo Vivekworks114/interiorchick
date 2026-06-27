@@ -67,7 +67,7 @@ export const topTenCards: CardItem[] = [
   {
     title: 'Douchekop met slang',
     href: '/beste-douchekop-met-slang/',
-    image: '/images/2023/06/douchekop.jpeg',
+    image: '/images/elementor/thumbs/douchekop-rgc2amqkxw50cqfhrpedps5nj85rljcknedu1goguw.jpg',
     alt: 'douchekop',
   },
   {

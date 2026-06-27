@@ -46,11 +46,6 @@ const arrowIcon = `<svg width="10" height="6" viewBox="0 0 10 6" fill="none" ari
         </div>
         {item.children && (
           <ul class="nav__submenu">
-            <li class="nav__submenu-overview">
-              <a href={item.href} class="nav__sublink nav__sublink--overview">
-                Alle {item.label.toLowerCase()} &rarr;
-              </a>
-            </li>
             {item.children.map((child) => (
               <li>
                 <a href={child.href} class="nav__sublink">{child.label}</a>
