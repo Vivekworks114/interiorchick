@@ -53,7 +53,7 @@ DEFAULT_IMAGE = "/images/2023/06/digitale-wekker.jpeg"
 PRODUCT_IMAGES = {
     "beste-digitale-wekker": "/images/2023/06/digitale-wekker.jpeg",
     "beste-rieten-wasmand": "/images/2023/06/rieten-wasmand.jpeg",
-    "beste-douchekop-met-slang": "/images/2023/06/douchekop.jpeg",
+    "beste-douchekop-met-slang": "/images/elementor/thumbs/douchekop-rgc2amqkxw50cqfhrpedps5nj85rljcknedu1goguw.jpg",
     "beste-zwevend-tv-meubel": "/images/2023/06/zwevend-tv-meubel.jpeg",
     "beste-droogtoren": "/images/2023/06/droogtoren.jpeg",
     "beste-grote-zitzak": "/images/2025/12/zitzak-2-1024x682.jpg",
