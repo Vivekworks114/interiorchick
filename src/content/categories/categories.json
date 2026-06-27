@@ -1,0 +1,42 @@
+[
+  {
+    "slug": "blog",
+    "name": "Blog",
+    "parent": ""
+  },
+  {
+    "slug": "muziek-video",
+    "name": "Muziek &amp; Video",
+    "parent": ""
+  },
+  {
+    "slug": "pinterest",
+    "name": "Pinterest",
+    "parent": ""
+  },
+  {
+    "slug": "snapchat",
+    "name": "Snapchat",
+    "parent": ""
+  },
+  {
+    "slug": "tiktok",
+    "name": "TikTok",
+    "parent": ""
+  },
+  {
+    "slug": "uncategorized",
+    "name": "Uncategorized",
+    "parent": ""
+  },
+  {
+    "slug": "youtube",
+    "name": "YouTube",
+    "parent": ""
+  },
+  {
+    "slug": "",
+    "name": "",
+    "parent": ""
+  }
+]
