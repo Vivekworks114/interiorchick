@@ -2,47 +2,22 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
-import BlogCard from '../../components/BlogCard.astro';
+import BlogListing from '../../components/BlogListing.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('blog')).sort(
+const POSTS_PER_PAGE = 12;
+
+const allPosts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
+const posts = allPosts.slice(0, POSTS_PER_PAGE);
 ---
 <PageLayout
   title="Laatste blogs"
-  description="Bekijk de laatste blogs en interieurtips op InteriorChick.nl."
+  description="Laat je inspireren door onze blogs geschreven door interieurdesigners op InteriorChick.nl."
 >
   <Header slot="header" />
-  <div class="container">
-    <header class="page-header reveal">
-      <p class="page-header__label">Blog</p>
-      <h1>Laatste blogs</h1>
-      <p>
-        Op zoek naar inspiratie voor stijlvol interieur? Ontdek onze nieuwste blogs
-        over wonen, inrichten en de mooiste producten voor jouw huis.
-      </p>
-    </header>
-    <div class="blog-grid">
-      {posts.map((post) => (
-        <BlogCard entry={post} />
-      ))}
-    </div>
-  </div>
+  <BlogListing posts={posts} currentPage={1} totalPages={totalPages} />
   <Footer slot="footer" />
 </PageLayout>
-
-<style>
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
-    padding-bottom: 3rem;
-  }
-
-  @media (max-width: 767px) {
-    .blog-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

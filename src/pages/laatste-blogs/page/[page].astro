@@ -1,0 +1,37 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import BlogListing from '../../../components/BlogListing.astro';
+import { getCollection } from 'astro:content';
+
+const POSTS_PER_PAGE = 12;
+
+export async function getStaticPaths() {
+  const POSTS_PER_PAGE = 12;
+  const allPosts = await getCollection('blog');
+  const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
+  return Array.from({ length: totalPages - 1 }, (_, i) => ({
+    params: { page: String(i + 2) },
+  }));
+}
+
+const { page } = Astro.params;
+const currentPage = Number(page);
+const allPosts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const totalPages = Math.max(1, Math.ceil(allPosts.length / POSTS_PER_PAGE));
+const posts = allPosts.slice(
+  (currentPage - 1) * POSTS_PER_PAGE,
+  currentPage * POSTS_PER_PAGE
+);
+---
+<PageLayout
+  title={`Laatste blogs - Pagina ${currentPage}`}
+  description="Laat je inspireren door onze blogs geschreven door interieurdesigners op InteriorChick.nl."
+>
+  <Header slot="header" />
+  <BlogListing posts={posts} currentPage={currentPage} totalPages={totalPages} />
+  <Footer slot="footer" />
+</PageLayout>
