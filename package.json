@@ -12,6 +12,8 @@
     "astro": "astro",
     "migrate": "python3 scripts/migrate-wordpress.py",
     "setup": "python3 scripts/setup-from-wp.py",
+    "scrape:products": "python3 scripts/scrape-product-pages.py",
+    "fix:blog-images": "python3 scripts/fix-blog-featured-images.py",
     "verify:links": "python3 scripts/verify-links.py"
   },
   "dependencies": {
