@@ -1,0 +1,48 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import BlogCard from '../../components/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+<PageLayout
+  title="Blog"
+  description="Bekijk alle blogs en interieurtips op InteriorChick.nl."
+>
+  <Header slot="header" />
+  <div class="container">
+    <header class="page-header reveal">
+      <p class="page-header__label">Blog</p>
+      <h1>Laatste blogs</h1>
+      <p>
+        Op zoek naar inspiratie voor stijlvol interieur? Ontdek onze blogs
+        over wonen, inrichten en de mooiste producten voor jouw huis.
+      </p>
+    </header>
+    <div class="blog-grid">
+      {posts.map((post) => (
+        <BlogCard entry={post} />
+      ))}
+    </div>
+  </div>
+  <Footer slot="footer" />
+</PageLayout>
+
+<style>
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    padding-bottom: 3rem;
+  }
+
+  @media (max-width: 767px) {
+    .blog-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
