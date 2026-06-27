@@ -1,0 +1,84 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  entry: CollectionEntry<'pages'>;
+}
+
+const { entry } = Astro.props;
+const { title, description, featuredImage } = entry.data;
+---
+<BaseLayout title={title} description={description} image={featuredImage}>
+  <slot name="header" slot="header" />
+  <article class="content-page">
+    <header class="content-page__header container reveal">
+      {featuredImage && (
+        <div class="content-page__hero">
+          <img
+            src={featuredImage}
+            alt={title}
+            width={1200}
+            height={675}
+            loading="eager"
+            class="content-page__image"
+          />
+        </div>
+      )}
+      <div class="content-page__meta">
+        <h1>{title}</h1>
+        {description && <p class="content-page__description">{description}</p>}
+      </div>
+    </header>
+    <div class="content-page__body container prose reveal">
+      <slot />
+    </div>
+  </article>
+  <slot name="footer" slot="footer" />
+</BaseLayout>
+
+<style>
+  .content-page {
+    padding-block: clamp(2rem, 4vw, 3.5rem);
+  }
+
+  .content-page__header {
+    margin-bottom: 2.5rem;
+  }
+
+  .content-page__hero {
+    margin-bottom: 2rem;
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    max-height: 480px;
+    border-radius: var(--card-radius);
+    background: var(--color-bg-soft);
+  }
+
+  .content-page__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .content-page__hero:hover .content-page__image {
+    transform: scale(1.02);
+  }
+
+  .content-page__meta h1 {
+    max-width: 28ch;
+    margin-bottom: 0.75rem;
+  }
+
+  .content-page__description {
+    font-size: 1.125rem;
+    color: var(--color-muted);
+    max-width: 60ch;
+    margin: 0;
+  }
+
+  .content-page__body {
+    padding-bottom: 3rem;
+  }
+</style>

@@ -1,0 +1,109 @@
+---
+import { categoryLinks } from '../data/homepage';
+---
+<section class="features reveal">
+  <div class="container">
+    <div class="features__grid">
+      {categoryLinks.map((item) => (
+        <a href={item.href} class="features__item">
+          <img src={item.icon} alt="" width="48" height="48" loading="lazy" />
+          <span>{item.label}</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features {
+    position: relative;
+    z-index: 2;
+    margin-top: -80px;
+    padding-bottom: 0;
+  }
+
+  .features__grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    background: #fcfcfc;
+    border: 1px solid #313131;
+    padding: 32px 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .features__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.875rem;
+    text-align: center;
+    padding: 0.5rem 0.75rem;
+    border-right: 1px solid #757575;
+    transition: color var(--transition);
+  }
+
+  .features__item:last-child {
+    border-right: none;
+  }
+
+  .features__item img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+  }
+
+  .features__item span {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #313131;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.35;
+  }
+
+  .features__item:hover span {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 1023px) {
+    .features__grid {
+      grid-template-columns: repeat(3, 1fr);
+      padding: 24px 12px;
+    }
+
+    .features__item {
+      border-right: none;
+      border-bottom: 1px solid #757575;
+      padding: 1rem 0.5rem;
+    }
+
+    .features__item:nth-child(3n) {
+      border-right: none;
+    }
+
+    .features__item:nth-last-child(-n + 3) {
+      border-bottom: none;
+    }
+  }
+
+  @media (max-width: 479px) {
+    .features {
+      margin-top: -40px;
+    }
+
+    .features__grid {
+      grid-template-columns: repeat(2, 1fr);
+      margin: 0;
+    }
+
+    .features__item:nth-child(3n) {
+      border-bottom: 1px solid #757575;
+    }
+
+    .features__item:nth-last-child(-n + 2) {
+      border-bottom: none;
+    }
+  }
+</style>
