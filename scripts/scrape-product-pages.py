@@ -109,12 +109,9 @@ def extract_page(html: str) -> dict | None:
     if og_image and og_image.get("content") and "wp-content/uploads" in og_image["content"]:
         featured_image = upload_to_local(og_image["content"])
 
-    breadcrumb_widget = wp_page.select_one(".elementor-widget-breadcrumbs")
-    if breadcrumb_widget:
-        host = breadcrumb_widget.find_parent(
-            "div", class_=lambda c: c and "elementor-element" in " ".join(c)
-        )
-        (host or breadcrumb_widget).decompose()
+    for widget in wp_page.find_all(".elementor-widget-breadcrumbs"):
+        for tag in widget.find_all("style"):
+            tag.decompose()
 
     for widget in wp_page.find_all(
         "div",

@@ -26,6 +26,7 @@
   align-items: center;
   gap: 0.35rem;
   transition: color var(--transition);
+  white-space: nowrap;
 }
 
 #site-nav .nav-link:hover,
@@ -212,13 +213,10 @@
   }
 }
 
-.header__contact {
-  display: flex;
-  align-items: center;
-}
 
-@media (max-width: 1024px) {
-  .header__contact {
-    display: none;
+@media (min-width: 1025px) {
+  #site-nav .nav__list {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }

@@ -3,7 +3,9 @@ import { getCollection, render } from 'astro:content';
 import { allSiteSlugs, getPage, getCategoryItems } from '../data/pages';
 import BlogPostLayout from '../layouts/BlogPostLayout.astro';
 import ContentPageLayout from '../layouts/ContentPageLayout.astro';
+import ProductPageLayout from '../layouts/ProductPageLayout.astro';
 import ArticleLayout from '../layouts/ArticleLayout.astro';
+import { prepareProductHtml } from '../utils/product-page';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ArticleCard from '../components/ArticleCard.astro';
@@ -96,7 +98,16 @@ const isCategoryHub =
 const slug =
   props.type === 'blog' || props.type === 'page' ? props.entry.id : props.slug;
 
-const pageHtml = getPageHtml(slug);
+const rawPageHtml = getPageHtml(slug);
+
+const isProductPage =
+  props.type === 'page' &&
+  (props.entry.data.pageType === 'product' || props.entry.id.startsWith('beste-'));
+
+const pageHtml =
+  rawPageHtml && isProductPage
+    ? prepareProductHtml(rawPageHtml, props.entry.id)
+    : rawPageHtml;
 
 const { Content } =
   props.type === 'blog' ? await render(props.entry) : { Content: null };
@@ -109,7 +120,15 @@ const { Content } =
   </BlogPostLayout>
 )}
 
-{props.type === 'page' && (
+{props.type === 'page' && isProductPage && (
+  <ProductPageLayout entry={props.entry}>
+    <Header slot="header" />
+    {pageHtml ? <div set:html={pageHtml} /> : <p class="container">Content niet beschikbaar.</p>}
+    <Footer slot="footer" />
+  </ProductPageLayout>
+)}
+
+{props.type === 'page' && !isProductPage && (
   <ContentPageLayout entry={props.entry}>
     <Header slot="header" />
     {pageHtml ? <div class="wp-content" set:html={pageHtml} /> : <p>Content niet beschikbaar.</p>}

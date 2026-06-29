@@ -3,33 +3,33 @@ import { mainNavigation } from '../data/navigation';
 import Navigation from './Navigation.astro';
 
 const currentPath = Astro.url.pathname;
+const headerLogo = '/images/2023/01/InteriorChick.nl_-1.svg';
 ---
 <header class="header">
   <div class="header__inner container">
     <a href="/" class="header__logo" aria-label="InteriorChick.nl - Home">
-      <img src="/images/2023/01/InteriorChick.nl1_.svg" alt="InteriorChick.nl" width="220" height="40" />
+      <img src={headerLogo} alt="InteriorChick.nl" width="167" height="19" />
     </a>
 
     <div class="header__nav">
       <Navigation items={mainNavigation} currentPath={currentPath} />
     </div>
 
-    <div class="header__contact">
-      <a href="/contact/" class="btn btn--primary">Contact</a>
+    <div class="header__actions">
+      <a href="/contact/" class="btn btn--primary header__contact-btn">Contact</a>
+      <button
+        class="nav-toggle"
+        type="button"
+        id="nav-toggle"
+        aria-label="Menu openen"
+        aria-expanded="false"
+        aria-controls="site-nav"
+      >
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+        <span class="nav-toggle__bar"></span>
+      </button>
     </div>
-
-    <button
-      class="nav-toggle"
-      type="button"
-      id="nav-toggle"
-      aria-label="Menu openen"
-      aria-expanded="false"
-      aria-controls="site-nav"
-    >
-      <span class="nav-toggle__bar"></span>
-      <span class="nav-toggle__bar"></span>
-      <span class="nav-toggle__bar"></span>
-    </button>
   </div>
 
   <div class="nav-backdrop" id="nav-backdrop" aria-hidden="true"></div>
@@ -148,21 +148,29 @@ const currentPath = Astro.url.pathname;
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: var(--color-bg);
+    background: #ffffff;
     border-bottom: 1px solid var(--color-border);
   }
 
   .header__inner {
-    display: grid;
-    grid-template-columns: auto 1fr auto auto;
+    display: flex;
     align-items: center;
-    gap: 1.5rem;
+    justify-content: space-between;
+    gap: clamp(1rem, 3vw, 2rem);
     padding-block: 0.875rem;
     min-height: 57px;
   }
 
+  .header__logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 140px;
+  }
+
   .header__logo img {
-    width: clamp(160px, 22vw, 220px);
+    width: 167px;
+    max-width: min(167px, 38vw);
     height: auto;
     transition: opacity var(--transition);
   }
@@ -172,8 +180,22 @@ const currentPath = Astro.url.pathname;
   }
 
   .header__nav {
+    flex: 1;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .header__contact-btn {
+    padding: 0.625rem 1.25rem;
+    white-space: nowrap;
   }
 
   .nav-toggle {
@@ -215,23 +237,29 @@ const currentPath = Astro.url.pathname;
   }
 
   @media (max-width: 1024px) {
-    .header__inner {
-      display: flex;
-      justify-content: space-between;
-    }
-
     .header__nav {
       position: absolute;
       inset: 0;
       pointer-events: none;
+      justify-content: flex-end;
     }
 
     .header__nav :global(#site-nav) {
       pointer-events: auto;
     }
 
+    .header__contact-btn {
+      display: none;
+    }
+
     .nav-toggle {
       display: flex;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header__logo img {
+      width: 140px;
     }
   }
 </style>

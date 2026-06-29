@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  entry: CollectionEntry<'pages'>;
+}
+
+const { entry } = Astro.props;
+const { title, description, featuredImage } = entry.data;
+---
+<BaseLayout title={title} description={description} image={featuredImage}>
+  <slot name="header" slot="header" />
+  <article class="product-page">
+    <slot />
+  </article>
+  <slot name="footer" slot="footer" />
+</BaseLayout>
+
+<style is:global>
+  @import '../styles/product-page.css';
+</style>

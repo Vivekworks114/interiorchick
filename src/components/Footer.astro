@@ -22,6 +22,26 @@ const socialIcons = [
   { label: 'Twitter', icon: 'twitter' },
   { label: 'Youtube', icon: 'youtube' },
 ] as const;
+
+const primaryColumns = [
+  { heading: 'Informatie', links: footerInfoLinks },
+  { heading: 'Melders', links: footerCategoryLinks.melders },
+  { heading: 'Slaapkamer', links: footerCategoryLinks.slaapkamer },
+] as const;
+
+const secondaryColumns = [
+  {
+    heading: 'Laatste blogs',
+    links: blogPosts.map((post) => ({
+      label: post.data.title,
+      href: `/${post.id}/`,
+    })),
+    isBlog: true,
+  },
+  { heading: 'Keuken', links: footerCategoryLinks.keuken },
+  { heading: 'Terras', links: footerCategoryLinks.terras },
+  { heading: 'Veiligheid', links: footerCategoryLinks.veiligheid },
+] as const;
 ---
 <footer class="site-footer">
   <div class="container site-footer__main">
@@ -59,68 +79,31 @@ const socialIcons = [
       <p class="site-footer__copyright">&copy; {year} All rights reserved</p>
     </div>
 
-    <div class="site-footer__grid">
-      <div class="site-footer__column reveal">
-        <p class="site-footer__heading">Informatie</p>
-        <div class="site-footer__links">
-          {footerInfoLinks.map((link) => (
-            <p><a href={link.href}>{link.label}</a></p>
-          ))}
-        </div>
+    <div class="site-footer__columns">
+      <div class="site-footer__grid site-footer__grid--primary">
+        {primaryColumns.map((column) => (
+          <div class="site-footer__column reveal">
+            <p class="site-footer__heading">{column.heading}</p>
+            <div class="site-footer__links">
+              {column.links.map((link) => (
+                <a href={link.href}>{link.label}</a>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
 
-      <div class="site-footer__column reveal">
-        <p class="site-footer__heading">Melders</p>
-        <div class="site-footer__links">
-          {footerCategoryLinks.melders.map((link) => (
-            <p><a href={link.href}>{link.label}</a></p>
-          ))}
-        </div>
-      </div>
-
-      <div class="site-footer__column reveal">
-        <p class="site-footer__heading">Slaapkamer</p>
-        <div class="site-footer__links">
-          {footerCategoryLinks.slaapkamer.map((link) => (
-            <p><a href={link.href}>{link.label}</a></p>
-          ))}
-        </div>
-      </div>
-
-      <div class="site-footer__column reveal">
-        <p class="site-footer__heading">Laatste blogs</p>
-        <div class="site-footer__links">
-          {blogPosts.map((post) => (
-            <p><a href={`/${post.id}/`}>{post.data.title}</a></p>
-          ))}
-        </div>
-      </div>
-
-      <div class="site-footer__column reveal">
-        <p class="site-footer__heading">Keuken</p>
-        <div class="site-footer__links">
-          {footerCategoryLinks.keuken.map((link) => (
-            <p><a href={link.href}>{link.label}</a></p>
-          ))}
-        </div>
-      </div>
-
-      <div class="site-footer__column reveal">
-        <p class="site-footer__heading">Terras</p>
-        <div class="site-footer__links">
-          {footerCategoryLinks.terras.map((link) => (
-            <p><a href={link.href}>{link.label}</a></p>
-          ))}
-        </div>
-      </div>
-
-      <div class="site-footer__column reveal">
-        <p class="site-footer__heading">Veiligheid</p>
-        <div class="site-footer__links">
-          {footerCategoryLinks.veiligheid.map((link) => (
-            <p><a href={link.href}>{link.label}</a></p>
-          ))}
-        </div>
+      <div class="site-footer__grid site-footer__grid--secondary">
+        {secondaryColumns.map((column) => (
+          <div class:list={['site-footer__column', 'reveal', column.isBlog && 'site-footer__column--blogs']}>
+            <p class="site-footer__heading">{column.heading}</p>
+            <div class="site-footer__links">
+              {column.links.map((link) => (
+                <a href={link.href}>{link.label}</a>
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </div>
